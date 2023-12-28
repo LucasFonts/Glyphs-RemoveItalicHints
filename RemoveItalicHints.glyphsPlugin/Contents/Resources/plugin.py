@@ -34,7 +34,9 @@ class RemoveItalicHints(GeneralPlugin):
         # Interpolate the italic angle
         angle = 0
         for master_id, factor in interpolation.items():
-            angle += factor * glyph.parent.masters[master_id].italicAngle
+            master = glyph.parent.masters[master_id]
+            if master is not None:
+                angle += factor * glyph.parent.masters[master_id].italicAngle
 
         # If the font is italic, delete vertical hints
         if abs(angle) > 0.1:
